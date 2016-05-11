@@ -1,0 +1,66 @@
+<head>
+  <script src="https://fb.me/react-15.0.2.js"></script>
+  <script src="https://fb.me/react-dom-15.0.2.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head> 
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 target">
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script type="text/jsx">
+//define a react comopnent class
+// a class is the definitino of a component,, must be first instancaited
+var Badge = React.createClass({
+ render: function(){
+  return <button className="btn btn-primary" type="button">
+    {this.props.title} <span className="badge">{this.props.number}</span>
+    </button>
+ } 
+});
+
+var Thumbnail = React.createClass({
+  render: function(){
+    return <div className="thumbnail">
+      <img src={this.props.imageUrl} />
+      <div className="caption">
+        <h3> {this.props.header} </h3>
+        <p>{this.props.description}</p>
+        <p>
+          <Badge  title = {this.props.title}  number = {this.props.number} /> 
+</p>
+      </div>
+    </div>
+}
+});
+
+
+var options = {
+title: "See tutorials",
+number: "69" , 
+header: "Learn React",
+description: "React is a new library for making awesome and dynamic pages",
+imageUrl: 'https://facebook.github.io/react/img/logo.svg' 
+}; 
+
+//ask react to render the class
+// this is essentially the cutout from the "cookie cutter" 
+// pass the object 'options'as second argument
+var element = React.createElement(Thumbnail, options); 
+
+
+// when we ask react to render, 
+//we tell it where to place the rendered elemtn in the DOM
+// first artguemnt is isntance,, the second is where we want to render to
+  ReactDOM.render(element, document.querySelector('.target'));  
+</script> 

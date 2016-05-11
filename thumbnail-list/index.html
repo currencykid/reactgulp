@@ -1,0 +1,92 @@
+<head>
+  <script src="https://fb.me/react-15.0.2.js"></script>
+  <script src="https://fb.me/react-dom-15.0.2.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+</head> 
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 target">
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script type="text/jsx">
+//define a react comopnent class
+// a class is the definitino of a component,, must be first instancaited
+var Badge = React.createClass({
+ render: function(){
+  return <button className="btn btn-primary" type="button">
+    {this.props.title} <span className="badge">{this.props.number}</span>
+    </button>
+ } 
+});
+
+var Thumbnail = React.createClass({
+  render: function(){
+    return <div className="col-sm-6 col-md-4"> 
+      <div className="thumbnail">
+      <img src={this.props.imageUrl} />
+      <div className="caption">
+        <h3> {this.props.header} </h3>
+        <p>{this.props.description}</p>
+        <p>
+          <Badge  title = {this.props.title}  number = {this.props.number} /> 
+</p>
+        </div>
+      </div>
+    </div>
+}
+});
+
+//gonna use map on an array to call a function on every element in the array
+var ThumbnailList = React.createClass({
+  render: function(){
+    var list = this.props.thumbnailData.map(function(thumbnailProps){
+    // the following is a React shortcut for passing in an entire object
+    // take entire thumbnailProps options object and create instance of thumbanil and pass in all properties
+    // list is now an array of thumbnail instance
+      return <Thumbnail {...thumbnailProps} /> 
+}); 
+  return <div> 
+  {list} 
+  </div>
+}
+});
+
+var options = {
+thumbnailData: [{
+title: "See tutorials",
+number: "69" , 
+header: "Learn React",
+description: "React is a new library for making awesome and dynamic pages",
+imageUrl: 'https://facebook.github.io/react/img/logo.svg' 
+}, {
+title: "See tutorials",
+number: "19" , 
+header: "Learn Gulp",
+description: "Gulp is a buildsystem that helps you get all the shit you need for React together.",
+imageUrl: 'https://avatars0.githubusercontent.com/u/6200624?v=3&s=400' 
+}]
+}; 
+
+//ask react to render the class
+// this is essentially the cutout from the "cookie cutter" 
+// pass the object 'options'as second argument
+
+var element = React.createElement(ThumbnailList, options); 
+
+
+// when we ask react to render, 
+//we tell it where to place the rendered elemtn in the DOM
+// first artguemnt is isntance,, the second is where we want to render to
+
+  ReactDOM.render(element, document.querySelector('.container')); 
+</script> 
