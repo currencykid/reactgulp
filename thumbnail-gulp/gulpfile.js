@@ -5,11 +5,11 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
 
-gulp.task('default', function){
+gulp.task('default', function(){
   var bundler = watchify(browserify({
     entries : ['./src/app.jsx'], 
     transform : [reactify],
-    extensions : ['.jsx']
+    extensions : ['.jsx'], 
     debug : true,
     cache: {},
     packageCache: {},
