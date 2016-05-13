@@ -9,8 +9,14 @@ var ListItem = require('./list-item');
 
 module.exports = React.createClass({
   handleClick: function(){
-  alert('hello from dropdown'); 
+    // always want to change state with setSTate,, never directly change object
+    this.setState({open : !this.state.open }); 
   }, 
+  
+  getInitialState: function(){
+    // should dropdown be open when first renders? false, should not
+    return { open : false} 
+  },
   render: function(){
    var list = this.props.items.map(function(item){
       return <ListItem item = {item} /> 
@@ -22,7 +28,7 @@ module.exports = React.createClass({
       title={this.props.title} 
       subTitleClassName = "caret" /> 
       
-      <ul>
+      <ul className={"dropdown-menu " + (this.state.open ? "show" : "") } >
       {list}
       </ul> 
 
